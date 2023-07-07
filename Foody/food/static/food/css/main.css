@@ -1,0 +1,96 @@
+html {
+	font-size: 16px;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	font-size: 25px;
+	font-weight: 400;
+	color: #000;
+	background-color: white;
+	min-width: 320px;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+section {
+	padding: 50px 0;
+}
+
+a {
+	color: #111;
+}
+
+a:hover {
+	color: #555;
+}
+
+/* Header */
+.navbar-light .navbar-nav .nav-link {
+	color: #111;
+	font-weight: 400;
+	font-size: 30px;
+}
+.navbar-brand {
+	color: #111;
+	font-weight: 400;
+	font-size: 30px;
+}
+.navbar-nav .dropdown-menu {
+	right: 0;
+	left: auto;
+}
+
+.top-menu li a::after {
+	content: '';
+	display: block;
+	width: 100%;
+	background-color: #111;
+	height: 1px;
+	transition: all .3s;
+	transform: scale(0);
+}
+
+.top-menu li a:hover::after {
+	transform: scale(1);
+}
+
+.modal-body img {
+	max-width: 100px;
+}
+/* Header */
+
+/* Carousel */
+.my-carousel {
+	padding: 0;
+}
+
+.my-carousel .carousel-item {
+	display: flex;
+	max-height:900px;
+}
+
+.my-carousel .carousel-item img {
+	object-fit: cover;
+}
+/* Carousel */
+
+/*card*/
+.card {
+	border-radius: 30px;
+	background-color: #f8e304;
+	text-decoration: none;
+    border: solid 4px black;
+    text-align: left;
+	margin-top:50px;
+	margin-left:300px;
+	margin-right:100px;
+    overflow: hidden;
+    transition: 0.5s;
+	max-width: 800px;
+	width: -webkit-fill-available;
+
+}
