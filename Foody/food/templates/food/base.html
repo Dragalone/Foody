@@ -12,11 +12,56 @@
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 	<link rel="stylesheet" href="{% static 'food/css/main.css' %}">
+    {% block extracss %}
+    {% endblock %}
     <title>{{title}}</title>
 </head>
 <body>
 {% block content %}
 
 {% endblock %}
+	<footer>
+		<section class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3 col-6">
+						<h4>Информация</h4>
+						<ul class="list-unstyled">
+							<li><a href="#">Главная</a></li>
+							<li><a href="#">Каталог</a></li>
+							<li><a href="#">О разработчике</a></li>
+							<li><a href="#">Обратная связь</a></li>
+						</ul>
+					</div>
+
+					<div class="col-md-3 col-6">
+						<h4>Время работы</h4>
+						<ul class="list-unstyled">
+							<li>1-я Красноармейская ул., 1/21, Санкт-Петербург</li>
+							<li>пн-пт: 10:00 - 17:00</li>
+							<li>без перерыва</li>
+						</ul>
+					</div>
+
+					<div class="col-md-3 col-6">
+						<h4>Контакты</h4>
+						<ul class="list-unstyled">
+							<li><a href="tel:89643669939">+7 (964) 366-99-39</a></li>
+						</ul>
+					</div>
+
+					<div class="col-md-3 col-6">
+						<h4>Мы в сети</h4>
+						<div class="footer-icons">
+							<a href="#"><i class="fab fa-telegram"></i></a>
+							<a href="#"><i class="fab fa-youtube"></i></a>
+							<a href="#"><i class="fab fa-facebook-f"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</footer>
 </body>
+
 </html>

@@ -36,7 +36,7 @@ a:hover {
 }
 .navbar-brand {
 	color: #111;
-	font-weight: 400;
+	font-weight: 500;
 	font-size: 30px;
 }
 .navbar-nav .dropdown-menu {
@@ -85,7 +85,7 @@ a:hover {
 	text-decoration: none;
     border: solid 4px black;
     text-align: left;
-	margin-top:50px;
+	margin-top:70px;
 	margin-left:300px;
 	margin-right:100px;
     overflow: hidden;
@@ -93,4 +93,42 @@ a:hover {
 	max-width: 800px;
 	width: -webkit-fill-available;
 
+}
+
+/*footer*/
+.footer {
+	background-color: #343434;
+	margin-top: 200px;
+}
+
+.footer h4 {
+	color: #ccc;
+	text-transform: uppercase;
+	font-size: 16px;
+	border-bottom: 1px solid #666;
+	padding-bottom: 3px;
+}
+
+.footer a {
+	text-decoration: none;
+	transition: all .3s;
+}
+
+.footer a:hover {
+	color: #fff;
+	text-decoration: underline;
+}
+
+.footer a, .footer li {
+	color: #c8c8c8;
+}
+
+.footer li a {
+	display: block;
+}
+
+.footer-icons a {
+	display: inline-block;
+	margin-right: 15px;
+	font-size: 20px;
 }

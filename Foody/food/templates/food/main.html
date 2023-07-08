@@ -16,10 +16,10 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0 top-menu">
 					<li class="nav-item">
-						<a class="nav-link" href="#">О нас</a>
+						<a class="nav-link" href="#">Каталог</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Каталог</a>
+						<a class="nav-link" href="#">О разработчике</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">Обратная связь</a>
@@ -33,54 +33,6 @@
 							<li><a class="dropdown-item" href="#">Регистрация</a></li>
 							<li><a class="dropdown-item" href="#">Авторизация</a></li>
 						</ul>
-					</li>
-
-					<li class="nav-item">
-						<a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#modal-cart">
-							<i class="fas fa-shopping-cart"></i>
-						</a>
-						<div class="modal fade" id="modal-cart" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-							<div class="modal-dialog modal-xl">
-								<div class="modal-content">
-									<div class="modal-header bg-secondary text-white">
-										<h5 class="modal-title" id="exampleModalLabel">Корзина</h5>
-										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-									</div>
-									<div class="modal-body">
-										<table class="table">
-											<tbody>
-												<tr>
-													<td><img src="img/products/apple_cinema_30.jpg" alt=""></td>
-													<td><a href="#">Apple Cinema 30"</a></td>
-													<td>$230.99</td>
-													<td>1</td>
-												</tr>
-												<tr>
-													<td><img src="img/products/canon_eos_5d_1.jpg" alt=""></td>
-													<td><a href="#">Canon EOS 5D</a></td>
-													<td>$230.99</td>
-													<td>1</td>
-												</tr>
-												<tr>
-													<td><img src="img/products/hp_1.jpg" alt=""></td>
-													<td><a href="#">HP</a></td>
-													<td>$230.99</td>
-													<td>1</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-primary">Save changes</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</li>
-
-					<li class="nav-item">
-						<a class="nav-link" href="#"><i class="fas fa-search"></i></a>
 					</li>
 				</ul>
 			</div>
@@ -134,11 +86,55 @@
 		</h1>
 
 	</div>
-	<div class="card">
-  		<div class="card-body">
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut euismod mi, ac imperdiet nisi. Pellentesque tempus ante ut nulla porttitor laoreet. Pellentesque pellentesque suscipit elementum. Vestibulum tempus a justo at vehicula. Ut euismod, erat lacinia tristique tempor, lectus elit varius quam, ut tristique risus odio eu mauris. Pellentesque arcu lorem, hendrerit vehicula velit sed, fermentum lobortis erat. Nunc ultricies tempor egestas. Vivamus condimentum fringilla velit placerat imperdiet. Suspendisse augue ex, pellentesque eget ex non, tempus lobortis justo.
- 		 </div>
+	<div class="row">
+		<div class="card col">
+			<div class="card-body">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut euismod mi, ac imperdiet nisi.
+				Pellentesque tempus ante ut nulla porttitor laoreet. Pellentesque pellentesque suscipit elementum.
+				Vestibulum tempus a justo at vehicula. Ut euismod, erat lacinia tristique tempor, lectus elit varius quam,
+				ut tristique risus odio eu mauris. Pellentesque arcu lorem, hendrerit vehicula velit sed, fermentum lobortis
+				erat. Nunc ultricies tempor egestas. Vivamus condimentum fringilla velit placerat imperdiet. Suspendisse
+				augue ex, pellentesque eget ex non, tempus lobortis justo.
+			</div>
+		</div>
+		<div class="card col">
+			<div class="card-body">
+				<img src="{% static 'food/images/7.jpg' %}">
+			</div>
+		</div>
 	</div>
-
-
+	<div class="row">
+		<div class="card col">
+			<div class="card-body">
+				<img src="{% static 'food/images/8.jpg' %}">
+			</div>
+		</div>
+		<div class="card col">
+			<div class="card-body">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut euismod mi, ac imperdiet nisi.
+				Pellentesque tempus ante ut nulla porttitor laoreet. Pellentesque pellentesque suscipit elementum.
+				Vestibulum tempus a justo at vehicula. Ut euismod, erat lacinia tristique tempor, lectus elit varius quam,
+				ut tristique risus odio eu mauris. Pellentesque arcu lorem, hendrerit vehicula velit sed, fermentum lobortis
+				erat. Nunc ultricies tempor egestas. Vivamus condimentum fringilla velit placerat imperdiet. Suspendisse
+				augue ex, pellentesque eget ex non, tempus lobortis justo.
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="card col">
+			<div class="card-body">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut euismod mi, ac imperdiet nisi.
+				Pellentesque tempus ante ut nulla porttitor laoreet. Pellentesque pellentesque suscipit elementum.
+				Vestibulum tempus a justo at vehicula. Ut euismod, erat lacinia tristique tempor, lectus elit varius quam,
+				ut tristique risus odio eu mauris. Pellentesque arcu lorem, hendrerit vehicula velit sed, fermentum lobortis
+				erat. Nunc ultricies tempor egestas. Vivamus condimentum fringilla velit placerat imperdiet. Suspendisse
+				augue ex, pellentesque eget ex non, tempus lobortis justo.
+			</div>
+		</div>
+		<div class="card col">
+			<div class="card-body">
+				<img src="{% static 'food/images/9.jpg' %}">
+			</div>
+		</div>
+	</div>
 {% endblock %}
