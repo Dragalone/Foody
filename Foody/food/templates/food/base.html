@@ -12,11 +12,102 @@
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 	<link rel="stylesheet" href="{% static 'food/css/main.css' %}">
+	<link rel="stylesheet" href="{% static 'food/css/footer.css' %}">
+	<link rel="stylesheet" href="{% static 'food/css/navbar.css' %}">
+	<link rel="stylesheet" href="{% static 'food/css/carousel.css' %}">
+	<link rel="stylesheet" href="{% static 'food/css/card.css' %}">
+
     {% block extracss %}
     {% endblock %}
     <title>{{title}}</title>
 </head>
 <body>
+	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #f8e304;">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="{% url 'main' %}">FOODY</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0 top-menu">
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'catalog' %}">Каталог</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'about_us' %}">О разработчике</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'contacts' %}">Обратная связь</a>
+					</li>
+				</ul>
+
+				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"><i class="far fa-user"></i></a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal-registration">Регистрация</button></li>
+							<li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modal-auth">Авторизация</button></li>
+						</ul>
+						<!--modal registration-->
+						<div class="modal fade" id="modal-registration" tabindex="-1" role="dialog"
+							 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title">Modal title</h5>
+										<button type="button" class="btn btn btn-danger" data-bs-dismiss="modal"
+												aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+											Close
+										</button>
+										<button type="button" class="btn btn-primary">Save changes</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--modal registration-->
+						<!--modal authentication-->
+						<div class="modal fade" id="modal-auth" tabindex="-1" role="dialog"
+							 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title">Modal title</h5>
+										<button type="button" class="btn btn btn-danger" data-bs-dismiss="modal"
+												aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										...
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+											Close
+										</button>
+										<button type="button" class="btn btn-primary">Save changes</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--modal authentication-->
+
+
+					</li>
+				</ul>
+			</div>
+		</div>
+
+	</nav>
+
+
 {% block content %}
 
 {% endblock %}
@@ -62,6 +153,6 @@
 			</div>
 		</section>
 	</footer>
-</body>
 
+</body>
 </html>

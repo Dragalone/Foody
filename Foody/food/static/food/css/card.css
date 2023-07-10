@@ -1,0 +1,15 @@
+.card {
+	border-radius: 30px;
+	background-color: #f8e304;
+	text-decoration: none;
+    border: solid 4px black;
+    text-align: left;
+	margin-top:70px;
+	margin-left:300px;
+	margin-right:100px;
+    overflow: hidden;
+    transition: 0.5s;
+	max-width: 800px;
+	width: -webkit-fill-available;
+}
+

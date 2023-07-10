@@ -1,0 +1,17 @@
+.about {
+    width: 100%;
+    padding: 60px;
+}
+.about img{
+    height: 700px;
+    width: auto;
+    border: solid 4px black;
+    border-radius: 30px;
+    margin-left: 150px;
+}
+
+.main{
+    justify-content: space-around;
+    display: flex;
+    align-items: center;
+}

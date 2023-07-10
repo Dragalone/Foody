@@ -1,0 +1,30 @@
+{% extends 'food/base.html' %}
+{% load static %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static 'food/css/about_us.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<section class="about">
+    <div class="main row" >
+        <div class="col">
+            <img src="{% static 'food/images/about_photo.jpg' %}">
+        </div>
+    <div class="card col" style="margin-right: 500px">
+        <div class="card-header"><h2>Designer and developer: Каверя Владимир</h2></div>
+			<div class="card-body ">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut euismod mi, ac imperdiet nisi.
+				Pellentesque tempus ante ut nulla porttitor laoreet. Pellentesque pellentesque suscipit elementum.
+				Vestibulum tempus a justo at vehicula. Ut euismod, erat lacinia tristique tempor, lectus elit varius quam,
+				ut tristique risus odio eu mauris. Pellentesque arcu lorem, hendrerit vehicula velit sed, fermentum lobortis
+				erat. Nunc ultricies tempor egestas. Vivamus condimentum fringilla velit placerat imperdiet. Suspendisse
+				augue ex, pellentesque eget ex non, tempus lobortis justo.lentesque tempus ante ut nulla porttitor laoreet. Pellentesque pellentesque suscipit elementum.
+			</div>
+		</div>
+    </div>
+</section>
+
+{% endblock %}
