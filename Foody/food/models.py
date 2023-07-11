@@ -1,12 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# class Profile(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     avatar = models.ImageField(default='default.png', upload_to='profile_images')
-#
-#     def __str__(self):
-#         return self.user.username
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar = models.ImageField(default='default.png', upload_to='profile_images')
+
+    def __str__(self):
+        return self.user.username
 class Recipe(models.Model):
     title = models.CharField(max_length=255, verbose_name="Заголовок")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")

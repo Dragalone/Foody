@@ -43,10 +43,15 @@
 
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"><i class="far fa-user"></i></a>
+						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"> {% if request.user.is_authenticated %} <i class="far fa-youtube"></i>  {% else %} <i class="far fa-user"></i> {% endif %}</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							{% if request.user.is_authenticated %}
+							<li><a class="dropdown-item" href="{% url 'profile' %}">Профиль</a></li>
+							<li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
+							{% else %}
 							<li><a class="dropdown-item" href="{% url 'sign_up' %}">Регистрация</a></li>
 							<li><a class="dropdown-item" href="{% url 'sign_in' %}">Авторизация</a></li>
+							{% endif %}
 						</ul>
 					</li>
 				</ul>
