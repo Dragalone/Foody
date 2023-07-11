@@ -1,0 +1,24 @@
+.card-sign {
+	border-radius: 15px;
+	background-color: #f8e304;
+	text-decoration: none;
+    border: solid 4px black;
+    text-align: left;
+    overflow: hidden;
+    transition: 0.5s;
+	width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+	width: -webkit-fill-available;
+}
+
+.background_img{
+    background-image: url('https://catherineasquithgallery.com/uploads/posts/2021-02/1614412145_41-p-ovoshchi-na-temnom-fone-63.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}

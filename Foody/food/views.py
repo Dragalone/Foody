@@ -25,3 +25,15 @@ def catalog (request):
         'title': 'Каталог',
     }
     return render(request, 'food/catalog.html', context=context)
+
+def sign_in (request):
+    context = {
+        'title': 'Регистрация',
+    }
+    return render(request, 'food/sign_in.html', context=context)
+
+def sign_up (request):
+    context = {
+        'title': 'Вход',
+    }
+    return render(request, 'food/sign_up.html', context=context)
