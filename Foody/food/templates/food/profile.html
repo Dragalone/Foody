@@ -2,9 +2,50 @@
 {% load static %}
 
 {% block extracss %}
+<link rel="stylesheet" href="{% static 'food/css/profile.css' %}">
 {% endblock %}
 
 
 {% block content %}
+<section>
+    <div class="container mt-3 ">
+    <div class="text-center">
+        <img src="{{ user.profile.avatar.url }}"
+              style="width:200px;height:200px;   overflow: hidden;
+						border-radius: 50%; box-shadow: 0 0 0 3px black, 0 0 13px #333;">
+    </div>
 
+        <div class="p-3 text-center">
+            <h4>Измените профиль:</h4>
+    <form method="post" enctype="multipart/form-data" >
+        {% csrf_token %}
+        <div class="row">
+        {% for f in u_form %}
+       <div class="col form-outline " style="text-align: left;">
+                 <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+                 <p>{{ f }}</p>
+       </div>
+        <div class="form-error">{{ f.errors }}  </div>
+        {% endfor %}
+         </div>
+         <div class="row">
+         {% for f in p_form %}
+             <div class="col form-outline" style="text-align: left;">
+                         <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+                        <p>{{ f }}</p>
+            </div>
+        <div class="form-error">{{ f.errors }}  </div>
+        {% endfor %}
+         </div>
+        <div class="row">
+            <div class="col" style="margin-top: 33px;">
+                <button class="btn btn-info btn-block btn-lg gradient-custom-4 text-body " style="width: 400px;" type="submit">
+                Сохранить
+                </button>
+            </div>
+        </div>
+    </form>
+        </div>
+    </div>
+</section>
 {% endblock %}

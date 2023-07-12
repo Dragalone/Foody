@@ -58,25 +58,25 @@ class LoginUserForm(AuthenticationForm):
 
 class UserUpdateForm(forms.ModelForm):
     first_name = forms.CharField(
-        label='Name',
+        label='Имя',
         max_length=100,
         help_text='Введите имя',
         widget=forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Имя'}),
     )
     last_name = forms.CharField(
-        label='Surname',
+        label='Фамилия',
         max_length=100,
         help_text='Введите фамилию',
         widget=forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Фамилия'}),
     )
     username = forms.CharField(
-        label='Username',
+        label='Имя пользователя',
         max_length=200,
         help_text='Введите имя пользователя',
         widget=forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Имя пользователя'}),
     )
     email = forms.EmailField(
-        label='Email',
+        label='Адрес электронной почты',
         max_length=100,
         help_text='Введите адрес электронной почты',
         widget=forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Адрес электронной почты'}),
@@ -90,7 +90,7 @@ class ProfileUpdateForm(forms.ModelForm):
     avatar = forms.ImageField(
         label='Добавить изображение',
         required=False,
-        widget=forms.FileInput(attrs={'class': 'custom-file-input', 'id': 'userAvatar', 'size' : '50', 'type':'file'}),
+        widget=forms.FileInput(attrs={'class': 'form-control form-control-lg', 'id': 'userAvatar', 'size' : '50', 'type':'file'}),
     )
     class Meta:
         model = Profile
