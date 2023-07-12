@@ -28,4 +28,15 @@ a:hover {
 	color: #555;
 }
 
+.mini_profile_img{
+  width: 132px;
+  height: 132px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 50%;
+}
 
+.personPhoto {
+  width: 30px;
+  height: auto;
+}
