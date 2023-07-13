@@ -6,8 +6,9 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.contrib import messages
 from .forms import RegisterUserForm, LoginUserForm, UserUpdateForm, ProfileUpdateForm
+from .models import Recipe, Category
 from .utils import DataMixin
-
+from django.views.generic import ListView, DetailView, CreateView, FormView
 
 # Create your views here.
 
@@ -28,7 +29,7 @@ def contacts (request):
         'title': 'Обратная связь',
     }
     return render(request, 'food/contacts.html', context=context)
-
+@login_required(login_url='sign_in')
 def catalog (request):
     context = {
         'title': 'Каталог',
@@ -88,6 +89,51 @@ def profile(request):
     context = {
         'u_form': u_form,
         'p_form': p_form,
-        'title': 'Profile',
+        'title': 'Профиль',
     }
     return render(request, 'food/profile.html',context)
+
+def my_recipes(request):
+    context = {
+        'title': 'Мои рецепты',
+    }
+    return render(request, 'food/my_recipes.html',context)
+
+class RecipeCategory(DataMixin, ListView):
+    model = Recipe
+    template_name = 'food/catalog.html'
+    context_object_name = 'recipes'
+    allow_empty = False
+
+    def get_queryset(self):
+        return Recipe.objects.filter(cat__slug=self.kwargs['cat_slug'], is_published=True).select_related('cat')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c = Category.objects.get(slug=self.kwargs['cat_slug'])
+        c_def = self.get_user_context(title='Категория - ' + str(c.name),
+                                      cat_selected=c.pk)
+        return dict(list(context.items()) + list(c_def.items()))
+
+class RecipeCatalog(DataMixin, ListView):
+    model = Recipe
+    template_name = 'food/catalog.html'
+    context_object_name = 'recipes'
+    def get_queryset(self):
+        return Recipe.objects.filter(is_published=True).select_related('cat')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Каталог')
+        return dict(list(context.items()) + list(c_def.items()))
+
+class ShowRecipe(DataMixin, DetailView):
+    model = Recipe
+    template_name = 'food/recipe.html'
+    slug_url_kwarg = 'recipe_slug'
+    context_object_name = 'recipe'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title=context['recipe'])
+        return dict(list(context.items()) + list(c_def.items()))

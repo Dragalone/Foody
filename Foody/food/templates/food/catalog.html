@@ -1,10 +1,51 @@
 {% extends 'food/base.html' %}
 {% load static %}
+{% load recipe_tags %}
 
 {% block extracss %}
 {% endblock %}
 
 
 {% block content %}
+	{% for r in recipes %}
+    {{r.cat}} <br>
+    {{r.time_update|date:"d-m-Y H:i:s"}}<br>
+{% endfor %}
+<!--        <div class="container-fluid">-->
+<!--            <div class="row flex-nowrap">-->
+<!--                <div class="col-auto px-0">-->
+<!--                    <div id="sidebar" class="collapse collapse-horizontal show border-end vh-100 shadow-sm">-->
+<!--                        <div id="sidebar-nav" class="list-group border-0 rounded-0">-->
+<!--                            <div class="p-2">-->
+<!--                                <h4>Admin Dashboard</h4>-->
+<!--                            </div>-->
+<!--                            <form class="d-flex p-2" method = POST >-->
+<!--                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
+<!--                                <button class="btn btn-primary" type="submit">Search</button>-->
+<!--                            </form>-->
+<!--                            <ul class="list-group">-->
+<!--                                <li class="list-group-item"><a href="#" class="text-decoration-none text-black">-->
+<!--                                        Dashboard</a></li>-->
+<!--                                <li class="list-group-item"> <a href="#"-->
+<!--                                        class="text-decoration-none text-black">Home</a> </li>-->
+<!--                                <li class="list-group-item"> <a href="#"-->
+<!--                                        class="text-decoration-none text-black">Blogs</a> </li>-->
+<!--                                <li class="list-group-item active" aria-current="true"> <a href="#"-->
+<!--                                        class="text-decoration-none text-white">Inbox</a> </li>-->
+<!--                                <li class="list-group-item"> <a href="#"-->
+<!--                                        class="text-decoration-none text-black">Settings</a> </li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col ps-md-2 pt-2">-->
+<!--                    <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse"-->
+<!--                        class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list"></i></a>-->
+<!--                    <div class="page-header pt-3">-->
+<!--                        <h2>Bootstrap 5 Sidebar Menu</h2>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 
 {% endblock %}
