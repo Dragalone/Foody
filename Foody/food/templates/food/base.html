@@ -49,7 +49,7 @@
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"> {% if request.user.is_authenticated %} <img  src="{{ request.user.profile.avatar.url }} " style="width:50px;height:50px;   overflow: hidden;
-						border-radius: 50%; box-shadow: 0 0 0 3px black, 0 0 13px #333;"> {% else %} <i class="far fa-user"></i> {% endif %}</a>
+						border-radius: 50%; box-shadow: 0 0 0 3px black, 0 0 0px #333;"> {% else %} <i class="far fa-user"></i> {% endif %}</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 							{% if request.user.is_authenticated %}
 							<li><a class="dropdown-item" href="{% url 'profile' %}">Профиль</a></li>

@@ -1,6 +1,8 @@
 from django.contrib.auth import logout, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
+from django.http import HttpResponse
+
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
@@ -9,6 +11,8 @@ from .forms import RegisterUserForm, LoginUserForm, UserUpdateForm, ProfileUpdat
 from .models import Recipe, Category
 from .utils import DataMixin
 from django.views.generic import ListView, DetailView, CreateView, FormView
+from django.db.models import Count, Q
+
 
 # Create your views here.
 
@@ -29,12 +33,6 @@ def contacts (request):
         'title': 'Обратная связь',
     }
     return render(request, 'food/contacts.html', context=context)
-@login_required(login_url='sign_in')
-def catalog (request):
-    context = {
-        'title': 'Каталог',
-    }
-    return render(request, 'food/catalog.html', context=context)
 
 def logout_user(request):
     logout(request)
@@ -115,10 +113,44 @@ class RecipeCategory(DataMixin, ListView):
                                       cat_selected=c.pk)
         return dict(list(context.items()) + list(c_def.items()))
 
+
+def recipe_catalog(request):
+
+    if request.method == "POST":
+        if 'name_searched' in request.POST:
+            name_searched = request.POST['name_searched']
+        else:
+            name_searched = ""
+        if 'cat_searched' in request.POST:
+            cat_searched = request.POST['cat_searched']
+        else:
+            cat_searched = ""
+        print("cat_searched: ")
+        print(cat_searched)
+        recipes = Recipe.objects.filter(is_published=True,title__contains=name_searched)
+        cats = Category.objects.annotate(Count('recipe')).filter(name__contains=cat_searched)
+        context = {
+            'title': 'Каталог',
+            'recipes' : recipes,
+            'cats' : cats,
+
+        }
+        return render(request, 'food/catalog.html', context=context)
+    else:
+        recipes = Recipe.objects.filter(is_published=True).select_related('cat')
+        cats = Category.objects.annotate(Count('recipe'))
+        context = {
+            'title': 'Каталог',
+            'recipes' : recipes,
+            'cats' : cats
+        }
+        return render(request, 'food/catalog.html', context=context)
+
 class RecipeCatalog(DataMixin, ListView):
     model = Recipe
     template_name = 'food/catalog.html'
     context_object_name = 'recipes'
+
     def get_queryset(self):
         return Recipe.objects.filter(is_published=True).select_related('cat')
 

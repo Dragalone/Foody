@@ -9,3 +9,6 @@ def get_categories(filter=None):
         return Category.objects.all()
     else:
         return Category.objects.filter(pk=filter)
+
+
+

@@ -1,0 +1,36 @@
+.preview{
+	border-radius: 15px;
+	 border: solid 2px black;
+	max-width: 400px;
+	height: auto;
+
+}
+
+.recipe_link a{
+text-decoration:none; /*Убираем стандартное подчёркивание ссылки если оно ещё не убрано*/
+display: inline-block; /*делаем чтобы наша ссылка из строчного элемента превратилась в строчно-блочный*/
+line-height: 2.5; /*Задаём высоту строки (можно в пикселях)*/
+color:black;/*Задаём цвет ссылки*/
+}
+
+.recipe_link a::after {
+	content: '';
+	display: block;
+	width: 100%;
+	background-color: #111;
+	height: 1px;
+	transition: all .3s;
+	transform: scale(0);
+
+}
+
+.recipe_link a:hover::after {
+	transform: scale(1);
+}
+.recipe_link a:hover{
+color: #464646;
+}
+
+li {
+    list-style-type: none; /* Убираем маркеры */
+}

@@ -1,4 +1,3 @@
-
 from django.db.models import Count
 
 from food.models import Category

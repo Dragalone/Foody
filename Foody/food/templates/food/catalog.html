@@ -3,49 +3,96 @@
 {% load recipe_tags %}
 
 {% block extracss %}
+	<link rel="stylesheet" href="{% static 'food/css/catalog.css' %}">
 {% endblock %}
 
 
 {% block content %}
-	{% for r in recipes %}
-    {{r.cat}} <br>
-    {{r.time_update|date:"d-m-Y H:i:s"}}<br>
-{% endfor %}
-<!--        <div class="container-fluid">-->
-<!--            <div class="row flex-nowrap">-->
-<!--                <div class="col-auto px-0">-->
-<!--                    <div id="sidebar" class="collapse collapse-horizontal show border-end vh-100 shadow-sm">-->
-<!--                        <div id="sidebar-nav" class="list-group border-0 rounded-0">-->
-<!--                            <div class="p-2">-->
-<!--                                <h4>Admin Dashboard</h4>-->
-<!--                            </div>-->
-<!--                            <form class="d-flex p-2" method = POST >-->
-<!--                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
-<!--                                <button class="btn btn-primary" type="submit">Search</button>-->
-<!--                            </form>-->
-<!--                            <ul class="list-group">-->
-<!--                                <li class="list-group-item"><a href="#" class="text-decoration-none text-black">-->
-<!--                                        Dashboard</a></li>-->
-<!--                                <li class="list-group-item"> <a href="#"-->
-<!--                                        class="text-decoration-none text-black">Home</a> </li>-->
-<!--                                <li class="list-group-item"> <a href="#"-->
-<!--                                        class="text-decoration-none text-black">Blogs</a> </li>-->
-<!--                                <li class="list-group-item active" aria-current="true"> <a href="#"-->
-<!--                                        class="text-decoration-none text-white">Inbox</a> </li>-->
-<!--                                <li class="list-group-item"> <a href="#"-->
-<!--                                        class="text-decoration-none text-black">Settings</a> </li>-->
-<!--                            </ul>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col ps-md-2 pt-2">-->
-<!--                    <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse"-->
-<!--                        class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list"></i></a>-->
-<!--                    <div class="page-header pt-3">-->
-<!--                        <h2>Bootstrap 5 Sidebar Menu</h2>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+
+
+
+
+        <div class="container-fluid">
+            <div class="row flex-nowrap">
+                <div class="col-auto px-0">
+                    <div id="sidebar" class="collapse collapse-horizontal show border-end vh-100 shadow-sm">
+                        <div id="sidebar-nav" class="list-group border-0 rounded-0">
+                                                        <div class="p-2">
+                                <h4>Поиск по названию:</h4>
+                            </div>
+                            <form class="d-flex p-2" method = POST  action="">
+                                 {% csrf_token %}
+                                <input class="form-control me-2" type="search" name="name_searched" placeholder="Поиск" aria-label="Поиск">
+                                <button class="btn" style="background-color: #f8e304;" type="submit">Поиск</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col ps-md-2 pt-2">
+                    <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse"
+                        class="border rounded-3 p-1 text-decoration-none" ><i class="bi bi-list"></i></a>
+                    <div class="page-header pt-3">
+                        <ul class="list-group">
+
+                            {% for r in recipes %}
+                            <li class="list-group">
+                            <div class="card" style="margin-bottom: 20px; margin-top: 20px; width: 900px;">
+                                <div class="card-body">
+
+                                        <div class="row">
+                                            <div class="col">
+                                                {% if r.preview_photo %} <p><img class="preview "
+                                                                                 src="{{r.preview_photo.url}}">
+                                            </p> {% endif %}
+                                            </div>
+                                            <div class="col recipe_link">
+                                                <a href="#" class=""><h2>
+                                    {{r.title}}</h2></a> <hr>
+                                                <p>Категория: {{r.cat}}</p>
+                                                <p>Автор:
+                                                    <img src="{{ r.user.profile.avatar.url }} " style="width:50px;height:50px;   overflow: hidden;
+						border-radius: 50%; box-shadow: 0 0 0 2px black, 0 0 0px #333;">
+                                                    {{r.user.username}}
+                                                </p>
+                                                <p>Дата изменения: {{r.time_update|date:"d-m-Y H:i:s"}}</p>
+                                            </div>
+                                        </div>
+
+
+                                </div>
+                            </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-auto ps-md-2 pt-2 me-auto">
+                    <a href="#" data-bs-target="#sidebar2" data-bs-toggle="collapse"
+                        class="border rounded-3 p-1 text-decoration-none" ><i class="bi bi-list"></i></a>
+                </div>
+                <div class="col-auto px-0 ">
+                    <div id="sidebar2" class="collapse collapse-horizontal show border-end vh-100 shadow-sm">
+                        <div id="sidebar-nav2" class="list-group border-0 rounded-0 me-auto">
+                            <form class="d-flex p-2" method = POST  action="">
+                                {% csrf_token %}
+                                <input class="form-control me-2" name = "cat_searched" type="search" placeholder="Поиск по категориям" aria-label="Поиск">
+                                <button class="btn" style="background-color: #f8e304;" type="submit">Поиск</button>
+                            </form>
+                            <div class="p-2">
+                                <h4>Список категорий:</h4>
+                            </div>
+                            <ul class="list-group">
+                                {% for c in cats %}
+                                <li class="list-group-item"><a href="#" class="text-decoration-none text-black">
+                                    {{c}}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 {% endblock %}
