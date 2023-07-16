@@ -27,6 +27,9 @@ class Recipe(models.Model):
         slug_str = unidecode(str(self.title))
         unique_slugify(self, slug_str)
         super(Recipe, self).save(**kwargs)
+
+    def get_absolute_url(self):
+        return reverse('recipe', kwargs={'rec_slug': self.slug})
     def __str__(self):
         return self.title
     class Meta:

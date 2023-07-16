@@ -15,8 +15,8 @@ urlpatterns = [
     path('logout/', logout_user, name='logout'),
     path('profile/', profile, name='profile'),
     path('my_recipes/', my_recipes, name='my_recipes'),
-    path('category/<slug:cat_slug>/', RecipeCategory.as_view(), name='category'),
-    path('recipe/<slug:recipe_slug>/', ShowRecipe.as_view(), name='recipe'),
+    path('category/<slug:cat_slug>/',recipe_category, name='category'),
+    path('recipe/<slug:rec_slug>/', show_recipe, name='recipe'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

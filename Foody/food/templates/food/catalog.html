@@ -47,7 +47,7 @@
                                             </p> {% endif %}
                                             </div>
                                             <div class="col recipe_link">
-                                                <a href="#" class=""><h2>
+                                                <a href="{{r.get_absolute_url}}" class=""><h2>
                                     {{r.title}}</h2></a> <hr>
                                                 <p>Категория: {{r.cat}}</p>
                                                 <p>Автор:
@@ -84,8 +84,9 @@
                                 <h4>Список категорий:</h4>
                             </div>
                             <ul class="list-group">
+                                <li class="list-group-item"><a href="{% url 'catalog'%}" class="text-decoration-none text-black">Все категории</a></li>
                                 {% for c in cats %}
-                                <li class="list-group-item"><a href="#" class="text-decoration-none text-black">
+                                <li class="list-group-item"><a href="{{c.get_absolute_url}}" class="text-decoration-none text-black">
                                     {{c}}</a></li>
                                 {% endfor %}
                             </ul>

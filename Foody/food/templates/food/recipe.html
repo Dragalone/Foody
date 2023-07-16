@@ -1,10 +1,16 @@
 {% extends 'food/base.html' %}
 {% load static %}
+{% load recipe_tags %}
+
 
 {% block extracss %}
 {% endblock %}
 
 
 {% block content %}
+
+{% for b in blocks %}
+{{b.content}}
+{% endfor %}
 
 {% endblock %}

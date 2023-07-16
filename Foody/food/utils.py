@@ -9,6 +9,7 @@ class DataMixin:
     def get_user_context(self, **kwargs):
         context = kwargs
         cats = Category.objects.annotate(Count('recipe'))
+
         context['cats'] = cats
         if 'cat_selected' not in context:
             context['cat_selected'] = 0
