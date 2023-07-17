@@ -109,21 +109,28 @@ def my_recipes(request):
         print(cat_searched)
         recipes = Recipe.objects.filter(is_published=True,title__contains=name_searched,user=request.user)
         cats = Category.objects.annotate(Count('recipe')).filter(name__contains=cat_searched)
+        paginator = Paginator(recipes, 5)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
         context = {
             'title': 'Каталог',
             'recipes' : recipes,
             'cats' : cats,
-
+            'page_obj': page_obj,
         }
         return render(request, 'food/my_recipes.html', context=context)
     else:
         recipes = Recipe.objects.filter(is_published=True,user=request.user).select_related('cat')
         cats = Category.objects.annotate(Count('recipe'))
+        paginator = Paginator(recipes, 5)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
         context = {
             'title': 'Каталог',
             'recipes' : recipes,
             'cats' : cats,
             'cat_selected': 0,
+            'page_obj': page_obj,
         }
         return render(request, 'food/my_recipes.html', context=context)
 
