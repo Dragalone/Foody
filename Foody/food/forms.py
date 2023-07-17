@@ -95,3 +95,47 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('avatar',)
+
+class AddBlockForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        self._recipe = kwargs.pop('recipe')
+        super(AddBlockForm, self).__init__(*args, **kwargs)
+    def save(self, commit=True):
+        inst = super(AddBlockForm, self).save(commit=False)
+        inst.recipe = self._recipe
+        if commit:
+            inst.save()
+            self.save_m2m()
+        return inst
+
+
+    class Meta:
+        model = Recipe_block
+        fields = ['content', 'photo']
+        widgets = {
+            'content': forms.Textarea(attrs={'class': 'form-control','cols': 60, 'rows': 10,'placeholder': 'Адрес электронной почты'}),
+            'photo': forms.FileInput(attrs={'class': 'form-control'})
+        }
+
+class AddRecipeForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        self._user = kwargs.pop('user')
+        self._slug = kwargs.pop('slug')
+        super(AddRecipeForm, self).__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        inst = super(AddRecipeForm, self).save(commit=False)
+        inst.user = self._user
+        inst.slug = self._slug
+        if commit:
+            inst.save()
+            self.save_m2m()
+        return inst
+    class Meta:
+        model = Recipe
+        fields = ['title', 'cat', 'is_published', 'preview_photo']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'preview_photo': forms.FileInput(attrs={'class': 'form-control'}),
+        }
+

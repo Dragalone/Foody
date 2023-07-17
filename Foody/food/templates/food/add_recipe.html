@@ -1,0 +1,40 @@
+{% extends 'food/base.html' %}
+{% load static %}
+
+{% block extracss %}
+{% endblock %}
+
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for f in recipe_form %}
+            <div class="form-outline mb-4">
+                {{ f }}
+            </div>
+            <div>{{ f.errors }}</div>
+            {% endfor %}
+            {% for f in block_form %}
+            <div class="form-outline mb-4">
+                {{ f }}
+            </div>
+            <div>{{ f.errors }}</div>
+            {% endfor %}
+            <div class="d-flex justify-content-center">
+                <button type="submit"
+                        class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Создать
+                </button>
+            </div>
+
+
+        </form>
+
+    </div>
+</div>
+
+
+
+
+{% endblock %}

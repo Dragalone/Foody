@@ -36,17 +36,21 @@ class Recipe(models.Model):
         verbose_name = 'Рецепты'
         verbose_name_plural = 'Рецепты'
         ordering = ['id']
+        get_latest_by = ['id']
 class Recipe_block(models.Model):
-    recipe = models.ForeignKey('Recipe', on_delete=models.PROTECT, verbose_name="Рецепт")
+    recipe = models.ForeignKey('Recipe', on_delete=models.CASCADE, verbose_name="Рецепт",null=True)
     content = models.TextField(blank=True, verbose_name="Текст рецепта")
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/", verbose_name="Фото")
-
     def __str__(self):
         return self.content
+
+    def create(self):
+        recipe = Recipe.objects.latest()
     class Meta:
         verbose_name = 'Блоки рецептов'
         verbose_name_plural = 'Блоки рецептов'
         ordering = ['id']
+
 class Category(models.Model):
     name = models.CharField(max_length=100, db_index=True, verbose_name="Категория", unique=True)
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")

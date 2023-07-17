@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView
 from django.contrib import messages
-from .forms import RegisterUserForm, LoginUserForm, UserUpdateForm, ProfileUpdateForm
+from .forms import RegisterUserForm, LoginUserForm, UserUpdateForm, ProfileUpdateForm, AddBlockForm, AddRecipeForm
 from .models import Recipe, Category
 from .utils import DataMixin
 from django.views.generic import ListView, DetailView, CreateView, FormView
@@ -180,30 +180,6 @@ def recipe_category(request,cat_slug):
         }
         return render(request, 'food/catalog.html', context=context)
 
-class RecipeCatalog(DataMixin, ListView):
-    model = Recipe
-    template_name = 'food/catalog.html'
-    context_object_name = 'recipes'
-
-    def get_queryset(self):
-        return Recipe.objects.filter(is_published=True).select_related('cat')
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title='Каталог')
-        return dict(list(context.items()) + list(c_def.items()))
-
-class ShowRecipe(DataMixin, DetailView):
-    model = Recipe
-    template_name = 'food/recipe.html'
-    slug_url_kwarg = 'rec_slug'
-    context_object_name = 'recipe'
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title=context['recipe'])
-        return dict(list(context.items()) + list(c_def.items()))
-
 
 def show_recipe(request,rec_slug):
     recipe = get_object_or_404(Recipe, slug=rec_slug)
@@ -214,3 +190,21 @@ def show_recipe(request,rec_slug):
         'blocks': blocks,
     }
     return render(request, 'food/recipe.html', context=context)
+
+
+def add_recipe(request):
+    if request.method == 'POST':
+        recipe_form = AddRecipeForm(request.POST, request.FILES, user=request.user, slug='-1')
+        block_form = AddBlockForm(request.POST, request.FILES,recipe=None)
+        if recipe_form.is_valid() and block_form.is_valid():
+            recipe_form.save()
+            rec = Recipe.objects.latest()
+            block_form = AddBlockForm(request.POST, request.FILES,recipe=rec)
+            block_form.save()
+
+            return redirect('catalog')
+    else:
+        recipe_form = AddRecipeForm(user=request.user, slug='-1')
+        block_form = AddBlockForm(recipe=None)
+    return render(request, 'food/add_recipe.html', {'block_form':block_form,'recipe_form':recipe_form, 'title': 'Добавление рецепта'})
+
