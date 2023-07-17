@@ -1,6 +1,7 @@
 from django.contrib.auth import logout, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
+from django.core.paginator import Paginator
 from django.forms import formset_factory, modelformset_factory
 from django.http import HttpResponse
 
@@ -8,7 +9,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView
 from django.contrib import messages
-from .forms import RegisterUserForm, LoginUserForm, UserUpdateForm, ProfileUpdateForm, AddBlockForm, AddRecipeForm
+from .forms import RegisterUserForm, LoginUserForm, UserUpdateForm, ProfileUpdateForm, AddBlockForm, AddRecipeForm, \
+    UpdateRecipeForm, UpdateBlockForm
 from .models import Recipe, Category, Recipe_block
 from .utils import DataMixin
 from django.views.generic import ListView, DetailView, CreateView, FormView
@@ -93,26 +95,38 @@ def profile(request):
     return render(request, 'food/profile.html',context)
 @login_required(login_url='sign_in')
 def my_recipes(request):
-    context = {
-        'title': 'Мои рецепты',
-    }
-    return render(request, 'food/my_recipes.html',context)
 
-class RecipeCategory(DataMixin, ListView):
-    model = Recipe
-    template_name = 'food/catalog.html'
-    context_object_name = 'recipes'
-    allow_empty = False
+    if request.method == "POST":
+        if 'name_searched' in request.POST:
+            name_searched = request.POST['name_searched']
+        else:
+            name_searched = ""
+        if 'cat_searched' in request.POST:
+            cat_searched = request.POST['cat_searched']
+        else:
+            cat_searched = ""
+        print("cat_searched: ")
+        print(cat_searched)
+        recipes = Recipe.objects.filter(is_published=True,title__contains=name_searched,user=request.user)
+        cats = Category.objects.annotate(Count('recipe')).filter(name__contains=cat_searched)
+        context = {
+            'title': 'Каталог',
+            'recipes' : recipes,
+            'cats' : cats,
 
-    def get_queryset(self):
-        return Recipe.objects.filter(cat__slug=self.kwargs['cat_slug'], is_published=True).select_related('cat')
+        }
+        return render(request, 'food/my_recipes.html', context=context)
+    else:
+        recipes = Recipe.objects.filter(is_published=True,user=request.user).select_related('cat')
+        cats = Category.objects.annotate(Count('recipe'))
+        context = {
+            'title': 'Каталог',
+            'recipes' : recipes,
+            'cats' : cats,
+            'cat_selected': 0,
+        }
+        return render(request, 'food/my_recipes.html', context=context)
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        c = Category.objects.get(slug=self.kwargs['cat_slug'])
-        c_def = self.get_user_context(title='Категория - ' + str(c.name),
-                                      cat_selected=c.pk)
-        return dict(list(context.items()) + list(c_def.items()))
 
 @login_required(login_url='sign_in')
 def recipe_catalog(request):
@@ -130,21 +144,28 @@ def recipe_catalog(request):
         print(cat_searched)
         recipes = Recipe.objects.filter(is_published=True,title__contains=name_searched)
         cats = Category.objects.annotate(Count('recipe')).filter(name__contains=cat_searched)
+        paginator = Paginator(recipes, 5)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
         context = {
             'title': 'Каталог',
             'recipes' : recipes,
             'cats' : cats,
-
+            'page_obj': page_obj,
         }
         return render(request, 'food/catalog.html', context=context)
     else:
         recipes = Recipe.objects.filter(is_published=True).select_related('cat')
         cats = Category.objects.annotate(Count('recipe'))
+        paginator = Paginator(recipes, 5)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
         context = {
             'title': 'Каталог',
             'recipes' : recipes,
             'cats' : cats,
             'cat_selected': 0,
+            'page_obj': page_obj,
         }
         return render(request, 'food/catalog.html', context=context)
 
@@ -163,21 +184,29 @@ def recipe_category(request,cat_slug):
 
         recipes = Recipe.objects.filter(is_published=True,cat__slug=cat_slug,title__contains=name_searched)
         cats = Category.objects.annotate(Count('recipe')).filter(name__contains=cat_searched)
+        paginator = Paginator(recipes, 5)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
         context = {
             'title': 'Каталог',
             'recipes' : recipes,
             'cats' : cats,
             'cat_selected': cat_slug,
+            'page_obj': page_obj,
         }
         return render(request, 'food/catalog.html', context=context)
     else:
         recipes = Recipe.objects.filter(is_published=True,cat__slug=cat_slug).select_related('cat')
         cats = Category.objects.annotate(Count('recipe'))
+        paginator = Paginator(recipes, 5)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
         context = {
             'title': 'Каталог',
             'recipes' : recipes,
             'cats' : cats,
             'cat_selected': cat_slug,
+            'page_obj': page_obj,
         }
         return render(request, 'food/catalog.html', context=context)
 
@@ -199,7 +228,6 @@ def add_recipe(request):
         block_form1 = AddBlockForm(request.POST, request.FILES, recipe=None,prefix='block_form1')
         block_form2 = AddBlockForm(request.POST, request.FILES, recipe=None,prefix='block_form2')
         block_form3 = AddBlockForm(request.POST, request.FILES, recipe=None,prefix='block_form3')
-        print(request.POST)
         if recipe_form.is_valid() and block_form1.is_valid() and block_form2.is_valid() and block_form3.is_valid():
             recipe_form.save()
             rec = Recipe.objects.latest()
@@ -212,8 +240,39 @@ def add_recipe(request):
             return redirect('catalog')
     else:
         recipe_form = AddRecipeForm(user=request.user, slug='-1')
-        block_form1 = AddBlockForm(request.POST, request.FILES, recipe=None,prefix='block_form1')
-        block_form2 = AddBlockForm(request.POST, request.FILES, recipe=None,prefix='block_form2')
-        block_form3 = AddBlockForm(request.POST, request.FILES, recipe=None,prefix='block_form3')
+        block_form1 = AddBlockForm( recipe=None,prefix='block_form1')
+        block_form2 = AddBlockForm( recipe=None,prefix='block_form2')
+        block_form3 = AddBlockForm(recipe=None,prefix='block_form3')
     return render(request, 'food/add_recipe.html', {'block_form1':block_form1,'block_form2':block_form2,'block_form3':block_form3,'recipe_form':recipe_form, 'title': 'Добавление рецепта'})
 
+def update_recipe(request, rec_slug):
+    recipe = get_object_or_404(Recipe, slug=rec_slug)
+    blocks = recipe.recipe_block_set.all()
+
+    if request.method == 'POST':
+        recipe_form = UpdateRecipeForm(request.POST, request.FILES, instance=recipe)
+        block_form1 = UpdateBlockForm(request.POST, request.FILES, instance=blocks[0],prefix='block_form1')
+        block_form2 = UpdateBlockForm(request.POST, request.FILES, instance=blocks[1],prefix='block_form2')
+        block_form3 = UpdateBlockForm(request.POST, request.FILES, instance=blocks[2],prefix='block_form3')
+        if recipe_form.is_valid() and block_form1.is_valid() and block_form2.is_valid() and block_form3.is_valid():
+            recipe_form.save()
+            block_form1.save()
+            block_form2.save()
+            block_form3.save()
+            return redirect('catalog')
+    else:
+        recipe_form = UpdateRecipeForm(instance=recipe)
+        block_form1 = UpdateBlockForm(instance=blocks[0],prefix='block_form1')
+        block_form2 = UpdateBlockForm(instance=blocks[1],prefix='block_form2')
+        block_form3 = UpdateBlockForm(instance=blocks[2],prefix='block_form3')
+
+
+    context = {
+        'r': recipe,
+        'blocks': blocks,'block_form1':block_form1,
+        'block_form2':block_form2,
+        'block_form3':block_form3,
+        'recipe_form':recipe_form,
+        'title': 'Изменение рецепта'
+    }
+    return render(request, 'food/update_recipe.html', context=context)

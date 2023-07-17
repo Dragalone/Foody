@@ -1,10 +1,75 @@
 {% extends 'food/base.html' %}
 {% load static %}
+{% load recipe_tags %}
 
 {% block extracss %}
+	<link rel="stylesheet" href="{% static 'food/css/catalog.css' %}">
 {% endblock %}
 
 
 {% block content %}
+
+
+
+
+        <div class="container-fluid">
+            <div class="row flex-nowrap">
+                <div class="col-auto px-0">
+                    <div id="sidebar" class="collapse collapse-horizontal show border-end vh-100 shadow-sm">
+                        <div id="sidebar-nav" class="list-group border-0 rounded-0">
+                                                        <div class="p-2">
+                                <h4>Поиск по названию:</h4>
+                            </div>
+                            <form class="d-flex p-2" method = POST  action="">
+                                 {% csrf_token %}
+                                <input class="form-control me-2" type="search" name="name_searched" placeholder="Поиск" aria-label="Поиск">
+                                <button class="btn" style="background-color: #f8e304;" type="submit">Поиск</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col ps-md-2 pt-2">
+                    <a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse"
+                        class="border rounded-3 p-1 text-decoration-none" ><i class="bi bi-list"></i></a>
+                    <div class="page-header pt-3">
+                        <ul class="list-group">
+
+                            {% for r in recipes %}
+                            <li class="list-group">
+                            <div class="card" style="margin-bottom: 20px; margin-top: 20px; width: 900px;">
+                                <div class="card-body">
+
+                                        <div class="row">
+                                            <div class="col recipe_link">
+                                                {% if r.preview_photo %} <p><img class="preview "
+                                                                                 src="{{r.preview_photo.url}}" >
+                                            </p> {% endif %}
+                                                <a href="{% url 'update_recipe' r.slug %}" class=""><h4>
+                                    Изменить</h4></a>
+                                            </div>
+                                            <div class="col recipe_link">
+                                                <a href="{{r.get_absolute_url}}" class=""><h2>
+                                    {{r.title}}</h2></a> <hr>
+                                                <p>Категория: {{r.cat}}</p>
+                                                <p>Автор:
+                                                    <img src="{{ r.user.profile.avatar.url }} " style="width:50px;height:50px;   overflow: hidden;
+						border-radius: 50%; box-shadow: 0 0 0 2px black, 0 0 0px #333;">
+                                                    {{r.user.username}}
+                                                </p>
+                                                <p>Дата изменения: {{r.time_update|date:"d-m-Y H:i:s"}}</p>
+
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
 {% endblock %}

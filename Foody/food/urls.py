@@ -17,7 +17,9 @@ urlpatterns = [
     path('my_recipes/', my_recipes, name='my_recipes'),
     path('category/<slug:cat_slug>/',recipe_category, name='category'),
     path('recipe/<slug:rec_slug>/', show_recipe, name='recipe'),
+    path('update_recipe/<slug:rec_slug>/', update_recipe, name='update_recipe'),
     path('add_recipe/', add_recipe, name='add_recipe'),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

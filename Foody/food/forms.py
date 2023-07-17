@@ -102,6 +102,11 @@ class ProfileUpdateForm(forms.ModelForm):
 
 
 class AddBlockForm(forms.ModelForm):
+    photo = forms.ImageField(
+        label='Фото',
+        required=False,
+        widget=forms.FileInput(attrs={'class': 'form-control','required': 'True'}),
+    )
     def __init__(self, *args, **kwargs):
         self._recipe = kwargs.pop('recipe')
         super(AddBlockForm, self).__init__(*args, **kwargs)
@@ -119,10 +124,18 @@ class AddBlockForm(forms.ModelForm):
         fields = ['content', 'photo']
         widgets = {
             'content': forms.Textarea(attrs={'class': 'form-control','cols': 60, 'rows': 10,'placeholder': 'Введите описание рецепта'}),
-            'photo': forms.FileInput(attrs={'class': 'form-control'})
         }
 
 class AddRecipeForm(forms.ModelForm):
+    preview_photo = forms.ImageField(
+        label='Добавить превью',
+        required=False,
+        widget=forms.FileInput(attrs={'class': 'form-control','required': 'True'}),
+    )
+    is_published = forms.BooleanField(
+        required=False,
+        label='Опубликовать',
+    )
     def __init__(self, *args, **kwargs):
         self._user = kwargs.pop('user')
         self._slug = kwargs.pop('slug')
@@ -141,6 +154,48 @@ class AddRecipeForm(forms.ModelForm):
         fields = ['title', 'cat', 'is_published', 'preview_photo']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'preview_photo': forms.FileInput(attrs={'class': 'form-control'}),
+        }
+
+
+
+class UpdateBlockForm(forms.ModelForm):
+    photo = forms.ImageField(
+        label='Фото',
+        required=False,
+        widget=forms.FileInput(attrs={'class': 'form-control'}),
+    )
+    def __init__(self, *args, **kwargs):
+        super(UpdateBlockForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        exclude = ('recipe',)
+        model = Recipe_block
+        fields = ['content', 'photo']
+        widgets = {
+            'content': forms.Textarea(attrs={'class': 'form-control','cols': 60, 'rows': 10,'placeholder': 'Введите описание рецепта'}),
+        }
+
+class UpdateRecipeForm(forms.ModelForm):
+    preview_photo = forms.ImageField(
+        label='Добавить превью',
+        required=False,
+        widget=forms.FileInput(attrs={'class': 'form-control'}),
+    )
+    is_published = forms.BooleanField(
+        label='Опубликовать',
+        required=False,
+        widget=forms.CheckboxInput(attrs={'class':'form-check-input'})
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(UpdateRecipeForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        exclude = ('user', 'slug')
+        model = Recipe
+        fields = ['title', 'cat', 'is_published', 'preview_photo']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'},),
+
         }
 

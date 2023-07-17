@@ -17,6 +17,7 @@
             </div>
             <div class="form-error">{{ f.errors }}</div>
             {% endfor %}
+
             {% for f in block_form1 %}
             <div class="form-outline mb-4">
                 <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
@@ -41,7 +42,7 @@
 
             <div class="d-flex justify-content-center">
                 <button type="submit"
-                        class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Создать
+                        class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Сохранить
                 </button>
             </div>
 
