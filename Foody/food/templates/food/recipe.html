@@ -4,13 +4,52 @@
 
 
 {% block extracss %}
+	<link rel="stylesheet" href="{% static 'food/css/recipe.css' %}">
 {% endblock %}
 
 
 {% block content %}
+<div style="display: flex">
+<div class="recipe_card" >
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+                {% if r.preview_photo %} <p><img class="photo"
+                                                 src="{{r.preview_photo.url}}">
+            </p> {% endif %}
+            </div>
+            <div class="col" style="margin: 25px">
+                <h2>
+                    {{r.title}}</h2>
+                <hr>
+                <p>Категория: {{r.cat}}</p>
+                <p>Автор:
+                    <img src="{{ r.user.profile.avatar.url }} " style="width:50px;height:50px;   overflow: hidden;
+						border-radius: 50%; box-shadow: 0 0 0 2px black, 0 0 0px #333;">
+                    {{r.user.username}}
+                </p>
+                <p>Дата изменения: {{r.time_update|date:"d-m-Y H:i:s"}}</p>
+            </div>
+        </div>
 
-{% for b in blocks %}
-{{b.content}}
-{% endfor %}
+<section>
+<hr>
+                {% for b in blocks %}
+            <div class="row">
+                <div class="col" >
+                    <img class="photo" src="{{b.photo.url}}">
+                </div>
+                <div class="col" style="margin: 25px">
+            {{b.content}}
+                </div>
+                <hr>
+                </div>
+            {% endfor %}
+    </section>
+    </div>
+</div>
+
+</div>
+
 
 {% endblock %}

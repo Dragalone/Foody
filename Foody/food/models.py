@@ -44,8 +44,7 @@ class Recipe_block(models.Model):
     def __str__(self):
         return self.content
 
-    def create(self):
-        recipe = Recipe.objects.latest()
+
     class Meta:
         verbose_name = 'Блоки рецептов'
         verbose_name_plural = 'Блоки рецептов'

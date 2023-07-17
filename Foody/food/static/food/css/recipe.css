@@ -1,0 +1,25 @@
+.recipe_card {
+	border-radius: 30px;
+	background-color: #f8e304;
+	text-decoration: none;
+    border: solid 4px black;
+    text-align: left;
+	margin: auto;
+	margin-top: 50px;
+    overflow: hidden;
+    transition: 0.5s;
+	max-width: 1200px;
+	width: -webkit-fill-available;
+
+}
+
+.photo{
+	border-radius: 15px;
+	 border: solid 2px black;
+	max-width: 400px;
+	height: auto;
+	margin: 25px;
+
+}
+
+

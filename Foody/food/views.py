@@ -1,6 +1,7 @@
 from django.contrib.auth import logout, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
+from django.forms import formset_factory, modelformset_factory
 from django.http import HttpResponse
 
 from django.shortcuts import render, redirect, get_object_or_404
@@ -8,7 +9,7 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView
 from django.contrib import messages
 from .forms import RegisterUserForm, LoginUserForm, UserUpdateForm, ProfileUpdateForm, AddBlockForm, AddRecipeForm
-from .models import Recipe, Category
+from .models import Recipe, Category, Recipe_block
 from .utils import DataMixin
 from django.views.generic import ListView, DetailView, CreateView, FormView
 from django.db.models import Count, Q
@@ -186,7 +187,7 @@ def show_recipe(request,rec_slug):
     blocks = recipe.recipe_block_set.all()
     context = {
         'title': recipe.title,
-        'recipe': recipe.title,
+        'r': recipe,
         'blocks': blocks,
     }
     return render(request, 'food/recipe.html', context=context)
@@ -195,16 +196,24 @@ def show_recipe(request,rec_slug):
 def add_recipe(request):
     if request.method == 'POST':
         recipe_form = AddRecipeForm(request.POST, request.FILES, user=request.user, slug='-1')
-        block_form = AddBlockForm(request.POST, request.FILES,recipe=None)
-        if recipe_form.is_valid() and block_form.is_valid():
+        block_form1 = AddBlockForm(request.POST, request.FILES, recipe=None,prefix='block_form1')
+        block_form2 = AddBlockForm(request.POST, request.FILES, recipe=None,prefix='block_form2')
+        block_form3 = AddBlockForm(request.POST, request.FILES, recipe=None,prefix='block_form3')
+        print(request.POST)
+        if recipe_form.is_valid() and block_form1.is_valid() and block_form2.is_valid() and block_form3.is_valid():
             recipe_form.save()
             rec = Recipe.objects.latest()
-            block_form = AddBlockForm(request.POST, request.FILES,recipe=rec)
-            block_form.save()
-
+            block_form1 = AddBlockForm(request.POST, request.FILES, recipe=rec,prefix='block_form1')
+            block_form2 = AddBlockForm(request.POST, request.FILES, recipe=rec,prefix='block_form2')
+            block_form3 = AddBlockForm(request.POST, request.FILES, recipe=rec,prefix='block_form3')
+            block_form1.save()
+            block_form2.save()
+            block_form3.save()
             return redirect('catalog')
     else:
         recipe_form = AddRecipeForm(user=request.user, slug='-1')
-        block_form = AddBlockForm(recipe=None)
-    return render(request, 'food/add_recipe.html', {'block_form':block_form,'recipe_form':recipe_form, 'title': 'Добавление рецепта'})
+        block_form1 = AddBlockForm(request.POST, request.FILES, recipe=None,prefix='block_form1')
+        block_form2 = AddBlockForm(request.POST, request.FILES, recipe=None,prefix='block_form2')
+        block_form3 = AddBlockForm(request.POST, request.FILES, recipe=None,prefix='block_form3')
+    return render(request, 'food/add_recipe.html', {'block_form1':block_form1,'block_form2':block_form2,'block_form3':block_form3,'recipe_form':recipe_form, 'title': 'Добавление рецепта'})
 

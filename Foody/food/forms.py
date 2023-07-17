@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.forms import formset_factory
 
 from .models import *
 
@@ -96,6 +97,10 @@ class ProfileUpdateForm(forms.ModelForm):
         model = Profile
         fields = ('avatar',)
 
+
+
+
+
 class AddBlockForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self._recipe = kwargs.pop('recipe')
@@ -113,7 +118,7 @@ class AddBlockForm(forms.ModelForm):
         model = Recipe_block
         fields = ['content', 'photo']
         widgets = {
-            'content': forms.Textarea(attrs={'class': 'form-control','cols': 60, 'rows': 10,'placeholder': 'Адрес электронной почты'}),
+            'content': forms.Textarea(attrs={'class': 'form-control','cols': 60, 'rows': 10,'placeholder': 'Введите описание рецепта'}),
             'photo': forms.FileInput(attrs={'class': 'form-control'})
         }
 

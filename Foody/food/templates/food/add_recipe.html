@@ -8,7 +8,7 @@
 {% block content %}
 <div class="card">
     <div class="card-body">
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" action="">
             {% csrf_token %}
             {% for f in recipe_form %}
             <div class="form-outline mb-4">
@@ -16,12 +16,28 @@
             </div>
             <div>{{ f.errors }}</div>
             {% endfor %}
-            {% for f in block_form %}
+            {% for f in block_form1 %}
             <div class="form-outline mb-4">
                 {{ f }}
+                <div>{{ f.errors }}</div>
             </div>
-            <div>{{ f.errors }}</div>
+
             {% endfor %}
+            {% for f in block_form2 %}
+            <div class="form-outline mb-4">
+                {{ f }}
+                <div>{{ f.errors }}</div>
+            </div>
+
+            {% endfor %}
+            {% for f in block_form3 %}
+            <div class="form-outline mb-4">
+                {{ f }}
+                <div>{{ f.errors }}</div>
+            </div>
+
+            {% endfor %}
+
             <div class="d-flex justify-content-center">
                 <button type="submit"
                         class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Создать
