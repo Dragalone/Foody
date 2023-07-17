@@ -1,3 +1,4 @@
+from captcha.fields import CaptchaField, CaptchaTextInput
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.forms import formset_factory
@@ -199,3 +200,8 @@ class UpdateRecipeForm(forms.ModelForm):
 
         }
 
+class ContactForm(forms.Form):
+    name = forms.CharField(label='Имя', max_length=255, widget=forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Имя'}),)
+    email = forms.EmailField(label='Email',widget=forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'email'}),)
+    content = forms.CharField(label='Сообщение',widget=forms.Textarea(attrs={'class': 'form-control','cols': 60, 'rows': 10, 'placeholder': 'Сообщение'}),)
+    captcha = CaptchaField(label='Введите',widget=CaptchaTextInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Введите'}),)

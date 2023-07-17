@@ -8,7 +8,7 @@ from Foody import settings
 urlpatterns = [
     path('', main, name='main'),
     path('aboutus/', about_us, name='about_us'),
-    path('contacts/', contacts, name='contacts'),
+    path('contacts/', ContactFormView.as_view(), name='contacts'),
     path('catalog/', recipe_catalog, name='catalog'),
     path('sign_in/', LoginUser.as_view(), name='sign_in'),
     path('sign_up/', RegisterUser.as_view(), name='sign_up'),

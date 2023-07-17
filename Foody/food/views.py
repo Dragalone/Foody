@@ -10,7 +10,7 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView
 from django.contrib import messages
 from .forms import RegisterUserForm, LoginUserForm, UserUpdateForm, ProfileUpdateForm, AddBlockForm, AddRecipeForm, \
-    UpdateRecipeForm, UpdateBlockForm
+    UpdateRecipeForm, UpdateBlockForm, ContactForm
 from .models import Recipe, Category, Recipe_block
 from .utils import DataMixin
 from django.views.generic import ListView, DetailView, CreateView, FormView
@@ -31,11 +31,6 @@ def about_us (request):
     }
     return render(request, 'food/about_us.html', context=context)
 
-def contacts (request):
-    context = {
-        'title': 'Обратная связь',
-    }
-    return render(request, 'food/contacts.html', context=context)
 
 def logout_user(request):
     logout(request)
@@ -283,3 +278,17 @@ def update_recipe(request, rec_slug):
         'title': 'Изменение рецепта'
     }
     return render(request, 'food/update_recipe.html', context=context)
+
+class ContactFormView(DataMixin, FormView):
+    form_class = ContactForm
+    template_name = 'food/contacts.html'
+    success_url = reverse_lazy('main')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title="Обратная связь")
+        return dict(list(context.items()) + list(c_def.items()))
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return redirect('main')

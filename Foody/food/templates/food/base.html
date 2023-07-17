@@ -80,10 +80,18 @@
 					<div class="col-md-3 col-6">
 						<h4>Информация</h4>
 						<ul class="list-unstyled">
-							<li><a href="#">Главная</a></li>
-							<li><a href="#">Каталог</a></li>
-							<li><a href="#">О разработчике</a></li>
-							<li><a href="#">Обратная связь</a></li>
+							<li><a href="{% url 'main' %}">Главная</a></li>
+							<li><a href="{% url 'catalog' %}">Каталог</a></li>
+							<li><a href="{% url 'about_us' %}">О разработчике</a></li>
+							<li><a href="{% url 'contacts' %}">Обратная связь</a></li>
+							{% if request.user.is_authenticated %}
+							<li>
+								<a href="{% url 'my_recipes' %}">Мои рецепты</a>
+							</li>
+							<li>
+								<a href="{% url 'add_recipe' %}">Добавить рецепт</a>
+							</li>
+							{% endif %}
 						</ul>
 					</div>
 
