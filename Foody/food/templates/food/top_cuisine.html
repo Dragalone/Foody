@@ -1,0 +1,47 @@
+{% extends 'food/base.html' %}
+{% load static %}
+{% load recipe_tags %}
+
+{% block extracss %}
+     <script  src="{% static 'food/js/hide.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'food/css/top_cuisine.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="cuisine">
+<ul>
+<li><a class="toopen" id="first_1" style="cursor:pointer;">Китайская кухня</a> <span class="toclose" id="second_1"
+                                                                                     style="display:none;cursor: pointer;">Скрыть<blackblock>{% for image in chinese.images %}
+{% endfor %}{{chinese.text|safe}}</blackblock></span>
+</li>
+<li><a class="toopen" id="first_2" style="cursor:pointer;">Французская кухня</a> <span class="toclose" id="second_2"
+                                                                                     style="display:none;cursor: pointer;">Скрыть<blackblock>{{france.text|safe}}</blackblock></span>
+</li>
+<li><a class="toopen" id="first_3" style="cursor:pointer;">Испанская кухня</a> <span class="toclose" id="second_3"
+                                                                                     style="display:none;cursor: pointer;">Скрыть<blackblock>{{spanish.text|safe}}</blackblock></span>
+</li>
+<li><a class="toopen" id="first_4" style="cursor:pointer;">Японская кухня</a> <span class="toclose" id="second_4"
+                                                                                     style="display:none;cursor: pointer;">Скрыть<blackblock>{{japanese.text|safe}}</blackblock></span>
+</li>
+<li><a class="toopen" id="first_5" style="cursor:pointer;">Индийская кухня</a> <span class="toclose" id="second_5"
+                                                                                     style="display:none;cursor: pointer;">Скрыть<blackblock>{{indian.text|safe}}</blackblock></span>
+</li>
+<li><a class="toopen" id="first_6" style="cursor:pointer;">Греческая кухня</a> <span class="toclose" id="second_6"
+                                                                                     style="display:none;cursor: pointer;">Скрыть<blackblock>{{greek.text|safe}}</blackblock></span>
+</li>
+<li><a class="toopen" id="first_7" style="cursor:pointer;">Тайская кухня</a> <span class="toclose" id="second_7"
+                                                                                     style="display:none;cursor: pointer;">Скрыть<blackblock>{{thai.text|safe}}</blackblock></span>
+</li>
+<li><a class="toopen" id="first_8" style="cursor:pointer;">Мексиканская кухня</a> <span class="toclose" id="second_8"
+                                                                                     style="display:none;cursor: pointer;">Скрыть<blackblock>{{mexican.text|safe}}</blackblock></span>
+</li>
+<li><a class="toopen" id="first_9" style="cursor:pointer;">Американская кухня</a> <span class="toclose" id="second_9"
+                                                                                     style="display:none;cursor: pointer;">Скрыть<blackblock>{{american.text|safe}}</blackblock></span>
+</li>
+<li><a class="toopen" id="first_10" style="cursor:pointer;">Итальянская кухня</a> <span class="toclose" id="second_10"
+                                                                                      style="display:none;cursor: pointer;">Скрыть<blackblock>{{italian.text|safe}}</blackblock></span>
+</li>
+</ul>
+</div>
+{% endblock %}

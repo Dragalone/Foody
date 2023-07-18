@@ -33,11 +33,15 @@
 					<li class="nav-item">
 						<a class="nav-link" href="{% url 'catalog' %}">Каталог</a>
 					</li>
+
 					<li class="nav-item">
 						<a class="nav-link" href="{% url 'about_us' %}">О разработчике</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="{% url 'contacts' %}">Обратная связь</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'top_cuisine' %}">Лучшие кухни мира</a>
 					</li>
 					{% if request.user.is_authenticated %}
 					<li class="nav-item">
@@ -91,6 +95,10 @@
 							<li>
 								<a href="{% url 'add_recipe' %}">Добавить рецепт</a>
 							</li>
+							<li>
+								<a href="{% url 'top_cuisine' %}">Лучшие кухни мира</a>
+							</li>
+
 							{% endif %}
 						</ul>
 					</div>

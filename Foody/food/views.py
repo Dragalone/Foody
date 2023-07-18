@@ -1,3 +1,5 @@
+import random
+
 from django.contrib.auth import logout, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
@@ -15,8 +17,9 @@ from .models import Recipe, Category, Recipe_block
 from .utils import DataMixin
 from django.views.generic import ListView, DetailView, CreateView, FormView
 from django.db.models import Count, Q
-
-
+import wikipediaapi
+import json
+import requests
 # Create your views here.
 
 def main (request):
@@ -292,3 +295,26 @@ class ContactFormView(DataMixin, FormView):
     def form_valid(self, form):
         print(form.cleaned_data)
         return redirect('main')
+
+
+def top_cuisine(request):
+    wiki_wiki = wikipediaapi.Wikipedia(
+        'Foody (test@example.com)',
+        language='ru',
+        extract_format=wikipediaapi.ExtractFormat.HTML
+    )
+    context = {
+        'chinese':wiki_wiki.page('Китайская_кухня'),
+        'france': wiki_wiki.page('Французская_кухня'),
+        'spanish': wiki_wiki.page('Испанская_кухня'),
+        'japanese': wiki_wiki.page('Японская_кухня'),
+        'indian': wiki_wiki.page('Индийская_кухня'),
+        'greek': wiki_wiki.page('Греческая_кухня'),
+        'thai': wiki_wiki.page('Тайская_кухня'),
+        'mexican': wiki_wiki.page('Мексиканская_кухня'),
+        'american': wiki_wiki.page('Американская_кухня'),
+        'italian': wiki_wiki.page('Итальянская_кухня'),
+    }
+    return render(request, 'food/top_cuisine.html', context=context)
+
+
