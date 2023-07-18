@@ -136,6 +136,7 @@ class AddRecipeForm(forms.ModelForm):
     is_published = forms.BooleanField(
         required=False,
         label='Опубликовать',
+        widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
     )
     def __init__(self, *args, **kwargs):
         self._user = kwargs.pop('user')
