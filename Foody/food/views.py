@@ -295,7 +295,9 @@ class ContactFormView(DataMixin, FormView):
     def form_valid(self, form):
         print(form.cleaned_data)
         return redirect('main')
-
+def delete(request, rec_slug):
+    Recipe.objects.filter(slug=rec_slug).delete()
+    return redirect('my_recipes')
 
 def top_cuisine(request):
     wiki_wiki = wikipediaapi.Wikipedia(

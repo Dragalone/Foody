@@ -73,7 +73,11 @@
                                                                                  src="{{r.preview_photo.url}}" >
                                             </p> {% endif %}
                                                 <a href="{% url 'update_recipe' r.slug %}" class=""><h4>
-                                    Изменить</h4></a>
+                                    Изменить</h4></a> <br>
+
+                                                    <a href="{% url 'delete' r.slug %}" class=""><h4>
+                                                        Удалить</h4></a>
+
                                             </div>
                                             <div class="col recipe_link">
                                                 <a href="{{r.get_absolute_url}}" class=""><h2>
@@ -84,6 +88,7 @@
 						border-radius: 50%; box-shadow: 0 0 0 2px black, 0 0 0px #333;">
                                                     {{r.user.username}}
                                                 </p>
+
                                                 <p>Дата изменения: {{r.time_update|date:"d-m-Y H:i:s"}}</p>
 
                                             </div>
